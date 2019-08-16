@@ -4,13 +4,17 @@ import {
   Text,
   Platform,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert,
+  TouchableWithoutFeedback,
+  Keyboard
 } from "react-native";
-import { Input, Item, Icon, Button } from "native-base";
+import { Input, Item, Header, Left, Right, Body, Title } from "native-base";
 
 const currencyPerRupee = {
-  LKR: 0.2,
-  INR: 0.3
+  DOLLAR: 0.2,
+  RUPEE: 0.3,
+  YEN: 0.5
 };
 
 export default class App extends React.Component {
@@ -22,36 +26,132 @@ export default class App extends React.Component {
     };
   }
 
+  buttonPressed = currency => {
+    if (this.state.inputValue === "") {
+      Alert.alert("Enter some value ");
+    }
+
+    let result = this.state.inputValue * currencyPerRupee[currency];
+    this.setState({ resultValue: result });
+  };
+
   doConversion = inputValue => {
     this.setState({ inputValue });
   };
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.viewStyle}>
-          <View style={styles.resultContainer}>
-            <Text style={styles.textStyle}>{this.state.resultValue}</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            <Item regular>
-              <Input
-                placeholderTextColor="#8B78E6"
-                style={styles.input}
-                placeholder="Enter USD..."
-                onChangeText={input => {
-                  this.doConversion(input);
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={styles.container}>
+          <Header>
+            <Left />
+            <Body>
+              <Title>CConverter</Title>
+            </Body>
+            <Right />
+          </Header>
+          <View style={styles.viewStyle}>
+            <View style={styles.resultContainer}>
+              <Text style={styles.textStyle}>{this.state.resultValue}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <Item regular>
+                <Input
+                  placeholderTextColor="#8B78E6"
+                  style={styles.input}
+                  keyboardType="numeric"
+                  placeholder="Enter USD..."
+                  onChangeText={input => {
+                    this.doConversion(input);
+                  }}
+                />
+              </Item>
+            </View>
+            <View style={styles.converterButtonContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("DOLLAR");
                 }}
-              />
-            </Item>
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>USD</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("RUPEE");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>RUPEE</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("YEN");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>YEN</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("DOLLAR");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>BITCON</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("RUPEE");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>AUS</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("YEN");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>CAN</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("DOLLAR");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>TRX</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("RUPEE");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>TRN</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.buttonPressed("YEN");
+                }}
+                style={styles.converterButton}
+              >
+                <Text style={styles.buttonText}>LTE</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.converterButtonContainer}>
-            <TouchableOpacity style={styles.converterButton}>
-              <Text style={styles.buttonText}>USD</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
     );
   }
 }
@@ -59,7 +159,7 @@ export default class App extends React.Component {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: "#EA7773"
+    backgroundColor: "white"
   },
   textStyle: {
     fontSize: 30,
@@ -104,8 +204,8 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#2B2B52",
-    height: 100,
     width: "33.33%",
+    height: 120,
     borderColor: "white",
     borderWidth: 2
   },
