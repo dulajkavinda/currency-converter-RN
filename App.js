@@ -1,6 +1,12 @@
 import React from "react";
-import { SafeAreaView, Text, Platform, View } from "react-native";
-import { Input, Item, Icon } from "native-base";
+import {
+  SafeAreaView,
+  Text,
+  Platform,
+  View,
+  TouchableOpacity
+} from "react-native";
+import { Input, Item, Icon, Button } from "native-base";
 
 const currencyPerRupee = {
   LKR: 0.2,
@@ -38,6 +44,11 @@ export default class App extends React.Component {
                 }}
               />
             </Item>
+          </View>
+          <View style={styles.converterButtonContainer}>
+            <TouchableOpacity style={styles.converterButton}>
+              <Text style={styles.buttonText}>USD</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
@@ -81,5 +92,28 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#BB2CD9"
+  },
+  converterButtonContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 20,
+    borderColor: "white",
+    borderWidth: 2
+  },
+  converterButton: {
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#2B2B52",
+    height: 100,
+    width: "33.33%",
+    borderColor: "white",
+    borderWidth: 2
+  },
+  buttonText: {
+    color: "white",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 15,
+    fontWeight: "bold"
   }
 };
